@@ -1,12 +1,29 @@
-#include <iostream>
-#include <algorithm>
+/*
+    Check Permutation: Given two strings, write a  method to decide if one is a  permutation of the other.
+*/
+
+#include <bits/stdc++.h>
 using namespace std;
 
-bool permutation(string first, string second)
+// O(n)
+bool check_permutation(string first, string second)
 {
-    sort(first.begin(), first.end());
-    sort(second.begin(), second.end());
-    return first == second;
+    const int alphabet = 255;
+    long long mask[alphabet];
+    memset(mask, 0, sizeof mask);
+
+    for (char c : first)
+        mask[c]++;
+
+    for (char c : second)
+        if (--mask[c] < 0)
+            return false;
+
+    for (int i : mask)
+        if (i != 0)
+            return false;
+
+    return true;
 }
 
 int main()
@@ -14,8 +31,8 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cout << permutation("ab", "ba") << endl;
-    cout << permutation("ab", "ac") << endl;
+    cout << check_permutation("ab", "ba") << endl;
+    cout << check_permutation("ab", "ac") << endl;
 
     return 0;
 }

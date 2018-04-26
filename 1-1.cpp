@@ -1,12 +1,25 @@
-#include <iostream>
+/*
+    Is Unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?
+*/
+
+#include <bits/stdc++.h>
 using namespace std;
 
-bool unique_characters(string str)
+// O(n)
+bool is_unique(string input)
 {
-    char first = str[0];
-    for (int i = 1; i < str.size(); i++)
-        if (first != str[i])
+    const int alphabet = 255;
+
+    if (input.size() > alphabet)
+        return false;
+
+    bitset<alphabet> mask;
+    for (char c : input)
+    {
+        if (mask[c])
             return false;
+        mask[c] = 1;
+    }
     return true;
 }
 
@@ -15,8 +28,8 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cout << unique_characters("aa") << endl;
-    cout << unique_characters("ab") << endl;
+    cout << is_unique("aacd") << endl;
+    cout << is_unique("abcd") << endl;
 
     return 0;
 }

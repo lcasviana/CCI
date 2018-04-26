@@ -1,25 +1,26 @@
-#include <iostream>
+/*
+    String Rotation: Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring (e.g., "waterbottle" is a rotation of "erbottlewat").
+*/
+
+#include <bits/stdc++.h>
 using namespace std;
 
-bool string_rotation(string one, string two)
+// O(n)
+bool isSubstring(string, string);
+bool string_rotation(string first, string second)
 {
-    if (one.size() != two.size())
-        return false;
-    if (one == two)
-        return true;
-    int size = one.size();
-    for (int j = 1; j < size; j++)
+    if (first.size() == second.size() && first.size() > 0)
     {
-        if (one[0] == two[j])
-        {
-            int x = 1, y = j + 1;
-            for (; y < size; x++, y++)
-                if (one[x] != two[y])
-                    break;
-            if (y == size && one.substr(x, j) == two.substr(0, j))
-                return true;
-        }
+        string temp = first + first;
+        return isSubstring(temp, second);
     }
+    return false;
+}
+
+bool isSubstring(string first, string second)
+{
+    if (first.find(second) != std::string::npos)
+        return true;
     return false;
 }
 

@@ -1,22 +1,33 @@
-#include <iostream>
-#include <locale>
-#include <algorithm>
+/*
+    Palindrome Permutation: Given a  string, write a  function to check if it is a  permutation of a  palin drome. A  palindrome is a  word or phrase that is the same forwards and backwards.  A permutation is a  rearrangement of letters. The palindrome does not need to be limited to just dictionary words.
+    EXAMPLE
+    Input: Tact Coa
+    Output: True (permutations:"taco cat'; "atco cta'; etc.)
+*/
+
+#include <bits/stdc++.h>
 using namespace std;
 
-bool palidrome_permutation(string one)
+// O(n)
+bool palidrome_permutation(string input)
 {
-    string two;
-    for (int i = 0; i < one.size(); i++)
-        if (isalpha(one[i]))
-            two.push_back(tolower(one[i]));
-    sort(two.begin(), two.end());
+    const int alphabet = 255;
+    unsigned long long mask[alphabet];
+    memset(mask, 0, sizeof mask);
+
+    for (char c : input)
+        if (isalpha(c))
+            mask[tolower(c)]++;
+
     bool middle = false;
-    for (int i = 0, j = 1; j < two.size(); i += 2, j += 2)
-        if (two[i] != two[j])
+    for (int i : mask)
+        if (i % 2 != 0)
+        {
             if (middle)
                 return false;
-            else
-                i--, j--, middle = true;
+            middle = true;
+        }
+
     return true;
 }
 
